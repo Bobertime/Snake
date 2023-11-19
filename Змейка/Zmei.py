@@ -65,14 +65,7 @@ def run_game():
             if event.type == pygame.QUIT:
                 terminate()
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT and not direction == RIGHT and not direction == LEFT:
-                    direction = LEFT
-                elif event.key == pygame.K_RIGHT and not direction == LEFT and not direction == RIGHT:
-                    direction = RIGHT
-                elif event.key == pygame.K_UP and not direction == DOWN and not direction == UP:
-                    direction = UP
-                elif event.key == pygame.K_DOWN and not direction == UP and not direction == DOWN:
-                    direction = DOWN
+                direction = get_direction(direction, event)
 
         if snake_hit_edge(snake[-1]):
             return
@@ -152,15 +145,16 @@ def new_apple():
 
 
 def get_direction(direction, event):
-    # TODO(7.3): функция возвращает направление движения
-    #  в зависимости от нажатой клавиши:
-    #  * pygame.K_LEFT
-    #  * pygame.K_RIGHT
-    #  * pygame.K_UP
-    #  * pygame.K_DOWN
-    #  Если нажата клавиша противоположного направления движения,
-    #  то не менять направление.
-    ...
+    if event.key == pygame.K_LEFT and not direction == RIGHT and not direction == LEFT:
+        return LEFT
+    elif event.key == pygame.K_RIGHT and not direction == LEFT and not direction == RIGHT:
+        return RIGHT
+    elif event.key == pygame.K_UP and not direction == DOWN and not direction == UP:
+        return UP
+    elif event.key == pygame.K_DOWN and not direction == UP and not direction == DOWN:
+        return DOWN
+    else:
+        return direction
 
 
 def snake_hit_self(snake):
